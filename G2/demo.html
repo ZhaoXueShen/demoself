@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    /*body {*/
+        /*writing-mode: rl-tb;*/
+        /*-webkit-writing-mode: rl-tb;*/
+    /*}*/
+    .btn {
+        display: block;
+        color: #a78252;
+        background-color: #ddc390;
+        writing-mode: vertical-lr;
+        width: 200px; height: 85px;
+        line-height: 50px;
+        border: 6px solid #ddc390;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px #d6b681, 0 1px, 0 2px, 0 3px, 0 4px;
+        text-align: center;
+        -webkit-transition: border-color .25s, background-color .25s;
+        transition: border-color .25s, background-color .25s;
+        font-size: 22px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .btn:active {
+        text-indent: 2px;
+    }
+    .verticle-mode {
+        writing-mode: tb-rl;
+        -webkit-writing-mode: vertical-rl;
+        writing-mode: vertical-rl;
+        *writing-mode: tb-rl;
+    }
+    .rtl{
+        text-align: left;
+        direction:rtl;
+    }
+    span {
+        display: inline-block;
+        background-color: #f0f3f9;
+        padding: 5px 10px;
+        margin: 0 10px;
+    }
+</style>
+<body>
+    <h4>咏柳</h4>
+    <p>碧玉妆成一树高，<br>万条垂下绿丝绦。<br>不知细叶谁裁出，<br>二月春风似剪刀。</p>
+    <div class="verticle-mode">
+        <h4>枫桥夜泊</h4>
+        <p>月落乌啼霜满天，</p><p>江枫渔火对愁眠。</p><p>姑苏城外寒山寺。</p><p>夜半钟声到客船。</p>
+    </div>
+    <p>恭喜你中了88元红包！</p>
+    <div href="javascript:" class="btn"><p>领</p><p>奖</p><p>领</p><p>奖</p></div>
+    <p class="rtl"><img src="demo.jpg" alt=""><img src="demo1.jpg" alt=""></p>
+    <div>
+    <div style="text-align: center;"><span>确定</span><span>取消</span></div>
+    </div>
+</body>
+</html>

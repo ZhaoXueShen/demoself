@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>高德地图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="demo.css">
+    <script>
+        var psdWidth = 640;
+        var rootFontSize = document.documentElement.clientWidth / (psdWidth/ 2) * 50;
+        document.querySelector('html').style.fontSize = rootFontSize + 'px';
+
+        /** 一屏内自适应处理  **/
+        var zoomStyle = document.createElement('style');
+        document.documentElement.appendChild(zoomStyle);
+        var hasTitleBar = false;
+        var screenWidth = document.documentElement.clientWidth;
+        var screenHeight = document.documentElement.clientHeight;
+        var scaleTemp = screenHeight / screenWidth * (hasTitleBar ? 750 / 1207 : 750 / 1334);
+        scaleTemp = scaleTemp > 1 ? 1 : scaleTemp;
+        zoomStyle.innerHTML = '.auto_scale{-webkit-transform: scale(' + scaleTemp + ');transform: scale(' + scaleTemp + ');}.auto_scale_center{-webkit-transform:translate(-50%,-50%) scale(' + scaleTemp + ');transform:translate(-50%,-50%) scale(' + scaleTemp + ');}';
+        /** 一屏内自适应处理  **/
+    </script>
+</head>
+
+<body>
+<div class="atext"></div>
+<div class="abutton">
+    <span class="abutton-text abutton-text-blueWhite abutton-text-short abutton-text-noIcon">去支付</span>
+</div>
+</body>
+</html>
+<script>
+    document.getElementsByClassName('abanner')[0].setAttribute('class','abanner auto_scale');
+    document.getElementsByClassName('abutton')[0].setAttribute('class','abutton auto_scale');
+    AmapApp.bapi.openAmap(document.getElementsByClassName('abutton')[0],'amapuri://drive/takeTaxiOrderList');
+</script>

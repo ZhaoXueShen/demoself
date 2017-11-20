@@ -1,0 +1,63 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body,html{
+	width: 100%;
+	height: 100%;
+}
+.story-line{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+/*星球的背景图*/
+.map-container .story-line .cutscene{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 7rem;
+    height: 11.96rem;
+    transform-origin: center bottom;
+    z-index: 9;
+    transition: opacity 2s;
+    overflow: hidden;
+}
+
+.map-container .story-line .cutscene0{
+    background: url("../img/planet1/planet1-base_map.png") no-repeat center;
+    background-size: 100% 100%;
+}
+.map-container .story-line .map{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15.5rem;
+    height: 15.5rem;
+    z-index: 12;
+    /*overflow: hidden;*/
+    background-size: 100% 100%;
+    transform-origin: 18% 36%;
+}
+.map-container .line0 .little-planet{
+    position: absolute;
+    left: 0.1rem;
+    top: 1.3rem;
+    width: 1.62rem;
+    height: 1.62rem;
+    background: url("../img/planet1/little-planet1.png") no-repeat center;
+    z-index: 9;
+    background-size: 100% 100%;
+}
+.map-container .map0{
+    background: url("../img/planet1/planet1_bg.png") no-repeat center;
+    background-size: 100% 100%;
+}
+
+#goNext{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+}

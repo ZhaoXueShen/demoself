@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/test.css"/>
+		<script>
+        var psdWidth = 640;
+        document.querySelector('html').style.fontSize = document.documentElement.clientWidth / (psdWidth / 2) * 50 + 'px';
+    </script>
+	</head>
+	<body>
+		<div>
+			<h1>
+				案件带哦是大家
+				<span class="span"></span>
+			</h1>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+    var fps = 30;
+    var now;
+    var then = Date.now();
+    var interval = 1000/fps;
+    var delta;
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    function tick() {
+        if(window.requestAnimationFrame)
+        {
+            requestAnimationFrame(tick);
+            now = Date.now();
+            delta = now - then;
+            if (delta > interval) {
+                // 这里不能简单then=now，否则还会出现上边简单做法的细微时间差问题。例如fps=10，每帧100ms，而现在每16ms（60fps）执行一次draw。16*7=112>100，需要7次才实际绘制一次。这个情况下，实际10帧需要112*10=1120ms>1000ms才绘制完成。
+                then = now - (delta % interval);
+                draw(); // ... Code for Drawing the Frame ...
+            }
+        }
+        else
+        {
+            setTimeout(tick, interval);
+            draw();
+        }
+    }
+    function draw() {
+
+    }
+    tick();
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>暑期活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/index.css">
+    <script>
+        var psdWidth = 640;
+        document.querySelector('html').style.fontSize = document.documentElement.clientWidth / (psdWidth/ 2) * 50 + 'px';
+        window.scale = document.documentElement.clientWidth/psdWidth;
+        /** 一屏内自适应处理  **/
+        var zoomStyle = document.createElement('style');
+        document.documentElement.appendChild(zoomStyle);
+        var hasTitleBar = false; //是否有默认titlebar（有和无屏幕比例不同）
+        var screenWidth = document.documentElement.clientWidth;
+        var screenHeight = document.documentElement.clientHeight;
+        var autoScale = screenHeight / screenWidth * (hasTitleBar ? 750 / 1207 : 750 / 1334);
+        autoScale = autoScale > 1 ? 1 : autoScale;
+        zoomStyle.innerHTML = '.auto_scale{-webkit-transform: scale(' + autoScale + ');transform: scale(' + autoScale + ');}';
+        /** 一屏内自适应处理  **/
+    </script>
+</head>
+<style type="text/css">
+	.test{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		width: 100px;
+		height: 100px;
+		background: #0062CC;
+		transition: all 2s;
+	}
+	.test.ani{
+		left: 0;
+		top: 0;
+	}
+</style>
+<body>
+
+    <div class="test"></div>
+<script src="../js/index.js"></script>
+</body>
+<script type="text/javascript">
+	document.getElementsByClassName('test')[0].onclick = function(){
+		this.setAttribute('class','test ani')
+	}
+</script>
+</html>

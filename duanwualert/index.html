@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		  <script>
+        var psdWidth = 640;
+        document.querySelector('html').style.fontSize = document.documentElement.clientWidth / (psdWidth/ 2) * 50 + 'px';
+        /** 一屏内自适应处理  **/
+        var zoomStyle = document.createElement('style');
+        document.documentElement.appendChild(zoomStyle);
+        var hasTitleBar = true; //是否有默认titlebar（有和无屏幕比例不同）
+        var screenWidth = document.documentElement.clientWidth;
+        var screenHeight = document.documentElement.clientHeight;
+        var autoScale = screenHeight / screenWidth * (hasTitleBar ? 750 / 1207 : 750 / 1334);
+        autoScale = autoScale > 1 ? 1 : autoScale;
+        zoomStyle.innerHTML = '.auto_scale{-webkit-transform: scale(' + autoScale + ');transform: scale(' + autoScale + ');}';
+        /** 一屏内自适应处理  **/
+    	</script>
+	</head>
+	<body>
+		<div class='result-box-mask'>
+			<div class="auto_scale">
+			<div class='result-box result-box0 one'>
+				<div class="result-box-top top-bg-black top-bg-white">
+					<div class="result-title result-title-black result-title-white">找到可爱粽<span>12</span>个</div>
+				</div>
+				<div class="result-box-bottom">
+					<div class="bottom-text-box">
+						<p class="bottom-text">今日的次数已经用光</p>
+						<p class="bottom-text hide">还差一颗金粽子即可打开<span>什么</span>礼盒</p>
+					</div>
+					
+					<div class="bottom-btn1 hide">
+						<p class="btn">做任务赢取游戏机会</p>
+				
+					</div>
+					<div class="bottom-btn2">
+						<p><span>兑换中心</span></p>
+						<p><span>再来一次</span></p>
+					</div>
+				</div>	
+				<div class="close-btn"></div>
+			</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+</html>

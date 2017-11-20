@@ -1,0 +1,27 @@
+@function ptRem($px){
+    @return $px/100 + rem
+}
+@mixin ft($px:26){
+    font-size: ptRem($px);
+}
+$blue: #1875e7;
+div {
+    color: $blue;
+    @include ft();
+    h1 {
+        height: 100px;
+        background: #F0AD4E;
+    }
+    .span{
+        width: ptRem(100);
+        height: ptRem(100);
+        background: #0062CC;
+        display: inline-block;
+        float: right;
+    }
+    p{
+        border: 1px solid #2AC845;
+    }
+}
+
+

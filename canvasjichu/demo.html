@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://qa-common.ofo.so/campaign/7-7/info.html -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>轻松骑出趣</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../img/demo/info.css">
+    <link rel="stylesheet" href="../img/demo/idangerous.swiper.css">
+    <script>
+        var psdWidth = 640;
+        document.querySelector('html').style.fontSize = document.documentElement.clientWidth / (psdWidth / 2) * 50 + 'px';
+    </script>
+    <script async="" src="../img/demo/analytics.js.下载"></script>
+    <script type="text/javascript" src="../img/demo/common.js.下载"></script>
+    <script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script>
+</head>
+<body>
+<!--内容区域-->
+<div class="content">
+    123
+    <!--中间部分图片-->
+    <div class="middle_part clearfix">
+        <div class="div1"><img src="../img/demo/top1.png" alt=""></div>
+        <div class="div2"><img src="../img/demo/top2.png" alt="">
+        </div>
+        <div class="div3"><img src="../img/demo/top3.png" alt="">
+        </div>
+        <div class="div4"><img src="../img/demo/top4.png" alt="">
+        </div>
+
+    </div>
+
+    <!--底部图片-->
+    <div class="swiper">
+        <div class="swiper-container">
+            <div class="swiper-wrapper" style="padding: 20px 93.75px; width: 937.5px; height: 319px; transform: translate3d(-750px, 0px, 0px); transition-duration: 0.3s;">
+                <div class="swiper-slide" style="width: 187.5px; height: 319px;">
+                    <img class="swiper-item" src="../img/demo/ditie1.png">
+                </div>
+                <div class="swiper-slide" style="width: 187.5px; height: 319px;">
+                    <img class="swiper-item" src="../img/demo/ditie2.png">
+                </div>
+                <div class="swiper-slide" style="width: 187.5px; height: 319px;">
+                    <img class="swiper-item" src="../img/demo/ditie3.png">
+                </div>
+                <div class="swiper-slide swiper-slide-visible" style="width: 187.5px; height: 319px;">
+                    <img class="swiper-item" src="../img/demo/ditie4.png">
+                </div>
+                <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 187.5px; height: 319px;">
+                    <img class="swiper-item" src="../img/demo/ditie5.png">
+                </div>
+            </div>
+        </div>
+        <div class="pagination"><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch swiper-visible-switch"></span><span class="swiper-pagination-switch swiper-visible-switch swiper-active-switch"></span></div>
+    </div>
+
+
+
+    <button id="button">立即搜捕小黄人</button>
+    <div class="activity_detail"><a id="detail" href="http://qa-common.ofo.so/campaign/7-7/detail.html">活动详情规则</a></div>
+</div>
+<div class="tip">活动暂未开始，敬请期待~</div>
+
+<script src="../img/demo/idangerous.swiper.min.js.下载"></script>
+<script>
+    var channel = "";
+    if (window.OFO_ENV.query().pageFrom == 'subway') {
+        channel = "01";
+    } else if (window.OFO_ENV.query().pageFrom == 'subway-haidian') {
+        channel = "02";
+    } else if (window.OFO_ENV.query().pageFrom == 'subway-neibao') {
+        channel = "03";
+    } else {
+        channel = window.OFO_ENV.query().pageFrom;
+    }
+    window.saTrackCompat.view('xiaohuanren_media_view_' + channel, 'page1');
+    window.onload = function () {
+        var mySwiper = new Swiper('.swiper-container', {pagination: '.pagination',
+            paginationClickable: true,
+            centeredSlides: true,
+            slidesPerView: 2,
+            initialSlide: 2,
+            watchActiveIndex: true,
+            //effect : 'fade',
+        });
+
+        var timeout = null;
+
+        document.querySelector("#button").addEventListener('click', function () {
+            clearTimeout(timeout);
+            var tip = document.querySelector('.tip');
+
+            tip.style.display = 'block';
+            timeout = setTimeout(function () {
+                tip.style.display = 'none';
+                clearTimeout(timeout);
+            }, 1400);
+        });
+    };
+    document.getElementById('button').addEventListener('click', function () {
+        window.saTrackCompat.click('xiaohuanren_media_click_' + channel, 'clickin');
+    })
+    document.getElementById('detail').addEventListener('click', function () {
+        window.saTrackCompat.click('xiaohuanren_media_click_' + channel, 'clickdetail');
+    })
+
+    var clientWidth = parent.document.documentElement.clientWidth;
+    var clientHeight = parent.document.documentElement.clientHeight;
+
+    resize(clientWidth, clientHeight);
+    window.addEventListener('resize', resize(clientWidth, clientHeight));
+    function resize(docWidth, docHeight) {
+        var docScale = docHeight / docWidth,
+            designWidth = 375, designHeight = 605, els = document.querySelectorAll('.content'),
+            scale = docWidth / designWidth,
+            scaleX = docWidth / designWidth,
+            scaleY = docHeight / designHeight;
+        convertArray(els).forEach(function (el) {
+            extend(el.style, {
+                width: designWidth + 'px',
+                height: (docScale * designWidth) + 'px',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                transformOrigin: '0 0',
+                webkitTransformOrigin: '0 0',
+                transform: 'scale(' + scale + ')',
+                webkitTransform: 'scale(' + scale + ')',
+                overflow: 'auto',
+                webkitOverflowScrolling: 'touch'
+            });
+        });
+    }
+    function convertArray(arrayLike) {
+        return Array.prototype.slice.call(arrayLike, 0);
+    }
+
+    function extend() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return args.reduce(function (prev, now) {
+            for (var key in now) {
+                if (now.hasOwnProperty && now.hasOwnProperty(key)) {
+                    prev[key] = now[key];
+                }
+            }
+            return prev;
+        });
+    }
+</script>
+<script>
+
+
+</script>
+</body>
+</html>

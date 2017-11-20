@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<title>canvas位图像素处理</title>
+	</head>
+
+	<body>
+		<canvas id="canvas1" width="500" height="350">
+			您的浏览器不支持canvas标签
+		</canvas>
+		<script type="text/javascript">
+			var canvas1 = document.getElementById('canvas1');
+			var ctx1 = canvas1.getContext('2d');
+
+			function init() {
+				image = new Image();
+				image.src = "img/default.jpg"
+				image.onload = function() {
+					ctx1.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+				}
+			}
+			init();
+		</script>
+		<br/>
+		<button onclick="draw()">像素翻转</button>
+		<button onclick="gray()">灰度处理</button>
+		<button onclick="bling()">亮度调节</button>
+		<button onclick="sharpen()">銳化處理</button>
+		<button onclick="level()">對比度</button>
+		<button onclick="levelmh()">模糊</button>
+		<button onclick="init()">复原</button>
+		<br/>
+		<!--		<canvas id="canvas2" width="500" height="350"></canvas>-->
+		<script type="text/javascript">
+			//色調取反
+			function draw() {
+				var imageData = ctx1.getImageData(0, 0, 500, 350);
+				for(var i = 0; i < imageData.data.length; i += 4) {
+					imageData.data[i] = 255 - imageData.data[i];
+					imageData.data[i + 1] = 255 - imageData.data[i + 1];
+					imageData.data[i + 2] = 255 - imageData.data[i + 2];
+					imageData.data[i + 3] = 255;
+				}
+				ctx1.putImageData(imageData, 0, 0);
+			}
+			//灰度處理
+			function gray() {
+				var imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+				for(var i = 0; i < imageData.data.length; i += 4) {
+					var avg = (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
+					imageData.data[i] = avg; // red
+					imageData.data[i + 1] = avg; // green
+					imageData.data[i + 2] = avg; // blue
+					imageData.data[i + 3] = 255; //alpha
+				}
+				ctx1.putImageData(imageData, 0, 0);
+			}
+			//亮度增加
+			function bling() {
+				var adjustment = Math.floor(Math.random() * 50 + 30);
+				var imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+				for(var i = 0; i < imageData.data.length; i += 4) {
+					imageData.data[i] += adjustment; // red
+					imageData.data[i + 1] += adjustment; // green
+					imageData.data[i + 2] += adjustment; // blue
+					imageData.data[i + 3] = 255; //alpha
+				}
+				ctx1.putImageData(imageData, 0, 0);
+			}
+			//銳化處理
+			function sharpen(){
+				var imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+				var m = [0,-1,0,-1,5,-1,0,-1,0];
+				var output = ConvolutionMatrix(imageData, m, 1,0);
+				ctx1.putImageData(output,0,0);
+			}
+			function levelmh(){
+				var imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+				var m = [1,1,1,1,1,1,1,1,1];
+				var output = ConvolutionMatrix(imageData, m, 10,0);
+				ctx1.putImageData(output,0,0);
+			}function level(){
+				var imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+				var m = [0,0,0,0,3,0,0,0,0];
+				var output = ConvolutionMatrix(imageData, m, 1,-150);
+				ctx1.putImageData(output,0,0);
+			}
+			// 卷积矩阵计算
+			function ConvolutionMatrix(input, m, divisor, offset) {
+				var output = document.createElement("canvas").getContext('2d').createImageData(input);
+				var w = input.width,
+					h = input.height;
+				var iD = input.data,
+					oD = output.data;
+				// 对除了边缘的点之外的内部点的 RGB 进行操作，透明度在最后都设为 255
+				for(var y = 1; y < h - 1; y += 1) {
+					for(var x = 1; x < w - 1; x += 1) {
+						for(var c = 0; c < 3; c += 1) {
+							var i = (y * w + x) * 4 + c;
+							// 卷积核计算
+							oD[i] = offset +
+								(m[0] * iD[i - w * 4 - 4] + m[1] * iD[i - w * 4] + m[2] * iD[i - w * 4 + 4] +
+									m[3] * iD[i - 4] + m[4] * iD[i] + m[5] * iD[i + 4] +
+									m[6] * iD[i + w * 4 - 4] + m[7] * iD[i + w * 4] + m[8] * iD[i + w * 4 + 4]) /
+								divisor;
+						}
+						oD[(y * w + x) * 4 + 3] = 255; // 设置透明度为不透明
+					}
+				}
+				return output;
+			}
+		</script>
+	</body>
+
+</html>

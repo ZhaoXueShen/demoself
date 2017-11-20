@@ -1,0 +1,132 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>兔子跳</title>
+<style>
+.container {
+	width: 480px;
+	height: 260px;
+	position: absolute;
+	left: 0; top: 0; right: 0; bottom: 0;
+	margin: auto;
+	background-color: #0a95a5;
+	overflow: hidden;
+}
+[hidden] {
+	display: none;
+}
+.fire {
+	position: absolute;
+	right: 50px; bottom: 0;
+	animation: tinyUpDown .5s infinite linear alternate;
+}
+.rabit {
+	position: absolute;
+	left: 0; bottom: 130px;
+}
+.rabit-x {
+	width: 175px;
+	position: absolute;
+	bottom: 10px; top: 0; left: -200px;
+}
+.shadow {
+	position: absolute;
+	width: 80%; height: 20px;
+	background-color: #000;
+	opacity: .2;
+	border-radius: 50%;
+	bottom: 0; left: 10%;
+}
+
+@keyframes tinyUpDown {
+	form {
+		transform: translateY(5px);
+	}
+	to {
+		transform: translateY(-5px);
+	}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <img src="./img/rabbit-die.png" width="175" height="104" hidden="">
+    <img class="fire" src="./img/fire.png" width="60" height="160">
+    <div id="rabitX" class="rabit-x">
+        <i id="shadow" class="shadow"></i>
+        <img id="rabit" class="rabit" src="./img/rabbit.png" width="175" height="104">
+    </div>
+</div>
+
+
+<script src="js/tween.js"></script>
+<script src="js/animation.js"></script>
+<script>
+var eleRabitX = document.getElementById('rabitX');
+var eleShadow = document.getElementById('shadow');
+var eleRabit = document.getElementById('rabit');
+
+// 兔子容器的水平位置
+var startX = -200, maxX = 300;
+// 兔子的垂直位置
+var startY = 200, maxY = 140, minY = 10;
+// 投影的透明度和大小
+var opacityMin = 0; opacityMax = 0.2;
+var scaleMin = 1; scaleMax = 2;
+
+var srcRabit = eleRabit.src;
+var srcRabitDie = srcRabit.replace('.png', '-die.png');
+
+var fnMove = function () {
+	// 初始化
+	fnInit();
+
+	// 水平移动
+	Math.animation(startX, maxX, 1000, function (value) {
+		eleRabitX.style.left = value + 'px';
+	});
+	// 1. 动画先落下
+	Math.animation(startY, minY, 500, 'Quad.easeIn', function (value, isEnding) {
+		fnStyleRabitShadow(value);
+		// 再跳起来
+		if (isEnding) {
+			Math.animation(minY, maxY, 500, 'Quad.easeOut', function (value, isEnding) {
+				fnStyleRabitShadow(value);
+				// 变成烤兔
+				if (isEnding) {
+					eleRabit.src = srcRabitDie;
+					// 3秒后继续运动
+					setTimeout(fnMove, 3000);
+				}
+			});
+		}
+	});
+};
+// 投影和兔子样式
+var fnStyleRabitShadow = function (value) {
+	eleRabit.style.bottom = value + 'px';
+	// 投影细节处理
+	var opacity = opacityMax - (opacityMax - opacityMin) * (value - minY) / (maxY - minY);
+	var scale = scaleMin + (scaleMax - scaleMin) * (value - minY) / (maxY - minY);
+
+	eleShadow.style.opacity = opacity;
+	eleShadow.style.msTransform = 'scale('+ scale +')';
+	eleShadow.style.transform = 'scale('+ scale +')';
+};
+
+
+var fnInit = function () {
+	// 状态默认
+	eleRabit.src = srcRabit;
+	eleRabit.removeAttribute('style');
+	eleShadow.removeAttribute('style');
+	eleRabitX.removeAttribute('style');
+};
+// 运动
+fnMove();
+</script>
+</body>
+</html>

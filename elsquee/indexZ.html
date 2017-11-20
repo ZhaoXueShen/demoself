@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>俄罗斯方块</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/indexZ.css"/>
+		 <script>
+        	var psdWidth = 640;
+        	document.querySelector('html').style.fontSize = document.documentElement.clientWidth / (psdWidth/ 2) * 50 + 'px';   
+    		var scaleStyle = document.createElement('style');
+	   	 	var scaleTemp = (750/window.innerWidth*window.innerHeight/1334).toFixed(2)*1;
+	    	scaleTemp=scaleTemp>1?1:scaleTemp;
+	    	scaleStyle.innerHTML='html{font-size:'+document.documentElement.clientWidth / 375 * 50 + 'px}.auto_scale{-webkit-transform: scale('+scaleTemp+');transform: scale('+scaleTemp+');}';
+	    	document.documentElement.appendChild(scaleStyle);
+		 </script>
+	</head>
+	<body>
+		<div class="auto_scale">
+		<div id="cont">
+			<canvas id="tetris" class="tetris"></canvas>
+		</div>
+		</div>
+		<script src="js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
+    	<script type="text/javascript" src="js/indexZ.js"></script>
+	</body>
+</html>
